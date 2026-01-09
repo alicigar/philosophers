@@ -1,0 +1,22 @@
+Los filósofos se sientan alrededor de una mesa redonda con un bol de espaguetis en medio.
+Tienen un tenedor en cada lado (dcha e izqd), y deberán tomar turnos para comer, pensar o dormir.
+Solo se permite una acción a la vez. Cuando un filośofo termine de comer, dejará los tenedores en la mesa e inmediatamente empieza a dormir. Una vez despierta, empieza a pensar. No debe morir nadie. Los filosofos ni hablan entre ellos, ni saben si otro filósofo va a morir.
+
+Argumentos válidos:
+number_of_philosophers (y de tenedores) n - 1, n, n + 1
+time_to_die (milisegundos)
+time_to_eat (milisegundos)
+time_to_sleep (milisegundos)
+number_of_times_each_philosopher_must_eat (opcional)
+
+Cualquier cambio de estado de un filósofo debe tener el siguiente formato:
+◦ timestamp_in_ms X has taken a fork
+◦ timestamp_in_ms X is eating
+◦ timestamp_in_ms X is sleeping
+◦ timestamp_in_ms X is thinking
+◦ timestamp_in_ms X died
+
+No pueden pasar más de 10ms entre la muerte de un filósofo y el momento en el
+que imprimes su muerte.
+
+Nada de variables globales, nada de data race. 
