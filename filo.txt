@@ -1,13 +1,14 @@
 Los filósofos (hilos/threads) se sientan alrededor de una mesa redonda con un bol de espaguetis en medio.
 Tienen un tenedor en cada lado (dcha e izqd que son los mutex, ya que comparten recursos comparten tenedores), y deberán tomar turnos para comer, pensar o dormir.
-Solo se permite una acción a la vez. Cuando un filośofo termine de comer, dejará los tenedores en la mesa e inmediatamente empieza a dormir. Una vez despierta, empieza a pensar. No debe morir nadie por inanición. Los filosofos ni hablan entre ellos, ni saben si otro filósofo va a morir.
+Solo se permite una acción a la vez. Cuando un filośofo termine de comer, dejará los tenedores en la mesa e inmediatamente empieza a dormir. Una vez despierta, empieza a pensar. 
+No debe morir nadie por inanición. Los filosofos ni hablan entre ellos, ni saben si otro filósofo va a morir.
 
 Argumentos válidos:
-number_of_philosophers (y de tenedores) n - 1, n, n + 1
-time_to_die (milisegundos)
-time_to_eat (milisegundos)
-time_to_sleep (milisegundos)
-number_of_times_each_philosopher_must_eat (opcional)
+1)number_of_philosophers (y de tenedores) n - 1, n, n + 1
+2)time_to_die (milisegundos)
+3)time_to_eat (milisegundos)
+4)time_to_sleep (milisegundos)
+5)number_of_times_each_philosopher_must_eat (opcional)
 
 Cualquier cambio de estado de un filósofo debe tener el siguiente formato:
 ◦ timestamp_in_ms X has taken a fork
@@ -27,3 +28,22 @@ En otras palabras:
 -Los filósofos compiten por los tenedores → problema clásico de sincronización.
 -Debes controlar tiempos con gettimeofday y usleep.
 -Debes imprimir logs sin que se mezclen → otro mutex.
+
+FUNCIONES PERMITIDAS y para que se usan:
+memset, printf, malloc, free, write, usleep 
+gettimeofday: sirve para calcular el tiempo desde que empezó la simulación, también para saber
+cuando comió un filósofo por última vez y además para imprimir timestamps en los logs.
+
+pthread_create: crea un hilo por cada filósofo y hacer que cada uno ejecute el pensar, comer o dormir
+pthread_detach: desvincula un hilo del programa principal, se usa en hilos que no es necesario esperar osea sin necesidad de usar join
+pthread_join: se usa para esperar que todos los filósofos acaben aunque muchas implementaciones
+no terminan hasta que alguien muere
+pthread_mutex_init: inicializa un mutex(candado)
+pthread_mutex_destroy: destruye un mutex se usa al final del programa para liberar memoria
+pthread_mutex_lock: bloquea un mutex, osea que coge un tenedor y si otro filósofo lo tiene, este hilo se queda esperando
+pthread_mutex_unlock: desbloquea un mutex, osea que suelta un tenedor y permite que el otro filósofo lo use
+
+Ejemplo: 6 800 200 200 5
+Esto significa que hay 6 filosofos/tenedores, mueren si pasan 800 ms sin comer,
+tardan 200ms en comer, 200ms en dormir y la simulacion termina cuando todos han comido
+5 veces.
