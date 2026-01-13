@@ -4,11 +4,11 @@ Solo se permite una acción a la vez. Cuando un filośofo termine de comer, deja
 No debe morir nadie por inanición. Los filosofos ni hablan entre ellos, ni saben si otro filósofo va a morir.
 
 Argumentos válidos:
-1)number_of_philosophers (y de tenedores) n - 1, n, n + 1
-2)time_to_die (milisegundos)
-3)time_to_eat (milisegundos)
-4)time_to_sleep (milisegundos)
-5)number_of_times_each_philosopher_must_eat (opcional)
+1.number_of_philosophers (y de tenedores) n - 1, n, n + 1
+2.time_to_die (milisegundos)
+3.time_to_eat (milisegundos)
+4.time_to_sleep (milisegundos)
+5.number_of_times_each_philosopher_must_eat (opcional)
 
 Cualquier cambio de estado de un filósofo debe tener el siguiente formato:
 ◦ timestamp_in_ms X has taken a fork
@@ -47,3 +47,43 @@ Ejemplo: 6 800 200 200 5
 Esto significa que hay 6 filosofos/tenedores, mueren si pasan 800 ms sin comer,
 tardan 200ms en comer, 200ms en dormir y la simulacion termina cuando todos han comido
 5 veces.
+
+MAIN: debe ser limpio y pequeño
+1.Declarar t_data data ✅
+2.Comprobar número de argumentos ✅
+3.Validar argumentos
+4.Inicializar data con los argumentos 
+5.Si hay 1 filósofo → caso especial
+6.Iniciar la simulación 
+7.Limpiar memoria
+8.Salir
+
+INICIALIZAR:
+convertir argumentos a ints
+reservar memoria para forks
+reservar memoria para philos
+inicializar mutexes
+asignar left_fork y right_fork a cada filósofo
+guardar start_time
+
+CREAR LOS HILOS:
+En start_simulation:
+recorres el array de filósofos
+llamas a pthread_create para cada uno
+creas un hilo monitor que vigile muertes
+
+ESCRIBIR LA RUTINA DEL FILOSOFO:
+while (!data->dead)
+{
+    pensar
+    coger tenedores
+    comer
+    soltar tenedores
+    dormir
+}
+
+ESCRIBIR MONITOR: este revisa si un filosofo lleva demasiado sin comer
+o si todos han comido must_eat_veces. Si detecta muerte, marca data->dead = 1
+Imprime died, termina la simulacion.
+
+Limpieza: destruir mutexes y liberacion de memoria.

@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/12 19:36:12 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/13 21:54:28 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ pthread_join, pthread_mutex_init, pthread_mutex_destroy,
 pthread_mutex_lock, pthread_mutex_unlock*/
 
 //structs
-DECLARAR LA ESTRUCTURA
+struct	s_data;
 
 //ESTRUCTURA DEL FILOSOFO
 //id ✅
@@ -36,11 +36,11 @@ DECLARAR LA ESTRUCTURA
 
 typedef struct s_philo
 {
+	struct s_data	*data;
 	int				id;
 	int				meals;
 	long			last_meal; //long por overflow con int
 	pthread_t		thread;
-	struct s_data	*data;
 	int				left_fork;
 	int				right_fork;
 }	t_philo;
@@ -51,10 +51,11 @@ typedef struct s_philo
 //mutex para imprimir 
 //array de filosofos 
 //tiempo de inicio 
-//flag de muerte 
+//flag de muerte
+
 typedef struct s_data
 {
-	int				number_of_ohilosophers;
+	int				number_of_philosophers;
 	int				time_to_die;
 	int				time_to_eat;
 	int				time_to_sleep;
@@ -67,5 +68,7 @@ typedef struct s_data
 }	t_data;
 
 //functions
+int	ft_isdigit(int c);
+int	is_valid_arg(const char *str);
 
 #endif
