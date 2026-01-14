@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:25:47 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/13 21:40:49 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/14 20:25:18 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (argc < 5 || argc > 6)
+		return (1);
+	if (input_checker(argc, argv))
 		return (1);
 	return (0);
 }

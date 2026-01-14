@@ -1,8 +1,7 @@
 NAME = philo
-
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-SRCS = main.c 
+SRCS = main.c utils.c parsing.c 
 OBJS = $(SRCS:.c=.o)
 RM = rm -f
 

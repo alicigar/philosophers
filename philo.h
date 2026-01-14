@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/13 21:54:28 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/14 20:13:05 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ typedef struct s_data
 }	t_data;
 
 //functions
-int	ft_isdigit(int c);
+
+int	ft_isdigit(int n);
+int	ft_atoi(const char *nptr);
 int	is_valid_arg(const char *str);
+int	input_checker(int argc, char **argv);
 
 #endif

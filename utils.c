@@ -6,46 +6,40 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:42:51 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/13 21:54:43 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/14 20:13:50 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_isdigit(int c)
+int	ft_isdigit(int n)
 
 {
-	if (c >= 48 && c <= 57)
+	if (n >= 48 && n <= 57)
 		return (1);
 	else
 		return (0);
 }
 
-int	is_valid_arg(const char *str)
+int	ft_atoi(const char *nptr)
 {
-	long long	num;
+	int	number;
+	int	neg;
 
-	if (!str || !str)
-		return (0);
-	num = 0;
-	while (*str)
+	number = 0;
+	neg = 1;
+	while ((*nptr >= 9 && *nptr <= 13) || *nptr == 32)
+		nptr ++;
+	if (*nptr == '+' || *nptr == '-')
 	{
-		if (!ft_isdigit(*str))
-			return (0);
-		num = num * 10 + (*str - '0');
-		if (num > 2147483647)
-			return (0);
-		str++;
+		if (*nptr == '-')
+			neg = -1;
+		nptr++;
 	}
-	if (num == 0)
-		return (0);
-	return (1);
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		number = number * 10 + (*nptr - '0');
+		nptr++;
+	}
+	return (neg * number);
 }
-
-//input_checker
-//que cada argumento es un numero valido
-//que no haya numeros negativos
-//que time_to_die, time_to_eat, time_to_sleep no sean 0
-//y must_eat SI puede ser 0
-//que no haya overflow
-//si pones 0 filosofos, no hay simulacion
