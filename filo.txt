@@ -51,7 +51,7 @@ tardan 200ms en comer, 200ms en dormir y la simulacion termina cuando todos han 
 MAIN: debe ser limpio y pequeño
 1.Declarar t_data data ✅
 2.Comprobar número de argumentos ✅
-3.Validar argumentos
+3.Validar argumentos ✅
 4.Inicializar data con los argumentos 
 5.Si hay 1 filósofo → caso especial
 6.Iniciar la simulación 
