@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/12 16:25:47 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/26 18:57:21 by alicigar         ###   ########.fr       */
+/*   Created: 2026/01/26 18:03:03 by alicigar          #+#    #+#             */
+/*   Updated: 2026/01/26 18:40:13 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int argc, char **argv)
+long	get_time(void)
 {
-	//t_data	data;
-	if (input_checker(argc, argv))
-	{
-		printf("Error: wrong input\n");
-		return (1);
-	}
-	printf("argv[1] = %s\n", argv[1]);
-	printf("argv[2] = %s\n", argv[2]);
-	printf("argv[3] = %s\n", argv[3]);
-	printf("argv[4] = %s\n", argv[4]);
-	if (argc == 6) 
-		printf("argv[5] = %s\n", argv[5]);
-	return (0);
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+void	safe_sleep(long time_in_ms)
+{
+	long	start;
+
+	start = get_time();
+	while (get_time() - start < time_in_ms)
+		usleep(42);
 }

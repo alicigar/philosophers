@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:42:37 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/14 22:39:06 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/26 18:43:43 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	init_data(t_data *data, int argc, char **argv)
 	else
 		data->must_eat = -1;
 	data->dead = 0;
-	data->start_time = //get_time()//;
+	data->start_time = get_time();
+	//inicializar hilos
 	return (0);
 }
 

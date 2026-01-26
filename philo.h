@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/14 22:39:14 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/26 18:40:36 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <stdio.h>//-> printf
 # include <stdlib.h>//-> malloc, free 
 # include <unistd.h>//-> write, usleep 
-# include <sys/time.h>//-> gettimeofday 
+# include <sys/time.h>//-> gettimeofday (te lo da en microsegundos y lo pide en milisegundos)
 # include <pthread.h>/*-> pthread_create, pthread_detach, 
 pthread_join, pthread_mutex_init, pthread_mutex_destroy,
 pthread_mutex_lock, pthread_mutex_unlock*/
@@ -69,9 +69,12 @@ typedef struct s_data
 
 //functions
 
-int	ft_isdigit(int n);
-int	ft_atoi(const char *nptr);
-int	is_valid_arg(const char *str);
-int	input_checker(int argc, char **argv);
+int		ft_isdigit(int n);
+int		ft_atoi(const char *nptr);
+int		is_valid_arg(const char *str);
+int		input_checker(int argc, char **argv);
+int		init_data(t_data *data, int argc, char **argv);
+long	get_time(void);
+void	safe_sleep(long time_in_ms);
 
 #endif
