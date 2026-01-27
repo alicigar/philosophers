@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/26 18:40:36 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/27 19:03:26 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct s_data
 	int				must_eat;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	log_mutex;
+	pthread_mutex_t	death_mutex;
 	t_philo			*philos;
 	long			start_time;
 	int				dead;
@@ -73,8 +74,11 @@ int		ft_isdigit(int n);
 int		ft_atoi(const char *nptr);
 int		is_valid_arg(const char *str);
 int		input_checker(int argc, char **argv);
-int		init_data(t_data *data, int argc, char **argv);
 long	get_time(void);
 void	safe_sleep(long time_in_ms);
+int		init_data(t_data *data, int argc, char **argv);
+int		init_forks(t_data *data);
+int		init_philos(t_data *data);
+void	cleanup(t_data *data);
 
 #endif

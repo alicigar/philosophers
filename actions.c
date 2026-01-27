@@ -1,31 +1,14 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/12 16:25:47 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/27 20:12:48 by alicigar         ###   ########.fr       */
+/*   Created: 2026/01/27 20:04:03 by alicigar          #+#    #+#             */
+/*   Updated: 2026/01/27 20:04:09 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-/*int	main(int argc, char **argv)
-{
-	//t_data	data;
-	if (input_checker(argc, argv))
-	{
-		printf("Error: wrong input\n");
-		return (1);
-	}
-	printf("argv[1] = %s\n", argv[1]);
-	printf("argv[2] = %s\n", argv[2]);
-	printf("argv[3] = %s\n", argv[3]);
-	printf("argv[4] = %s\n", argv[4]);
-	if (argc == 6) 
-		printf("argv[5] = %s\n", argv[5]);
-	return (0);
-}*/
-//QUEDA COMPLETAR Y MEJORARLO Y CUANTO MAS TESTEE MEJOR.

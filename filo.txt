@@ -75,15 +75,23 @@ creas un hilo monitor que vigile muertes
 ESCRIBIR LA RUTINA DEL FILOSOFO:
 while (!data->dead)
 {
+	nace
     pensar
     coger tenedores
-    comer
-    soltar tenedores
-    dormir
+    comer: empieza a comer, terminar de comer, termina de dormir
+	empieza a comer otra vez
+	termina de comer
 }
 
-ESCRIBIR MONITOR: este revisa si un filosofo lleva demasiado sin comer
+ESCRIBIR MONITOR o VIGILANTE: este revisa si un filosofo lleva demasiado sin comer
 o si todos han comido must_eat_veces. Si detecta muerte, marca data->dead = 1
 Imprime died, termina la simulacion.
 
 Limpieza: destruir mutexes y liberacion de memoria.
+
+-todos se bloquean// esperando a comer es deadlock
+-los filosofos pares cogen el tenedor izquierdo primero, y los impares el derecho
+-¿Qué hace pthread_mutex_lock? Es como cerrar un candado. Si otro hilo intenta cerrarlo, ESPERA hasta que se abra.
+-¿Por qué last_meal = get_time()? Para que el monitor sepa que acaba de comer y NO lo mate.
+-¿Qué pasa si no uso la estrategia par/impar? Deadlock. Todos esperan tenedores y nadie avanza.
+-¿Por qué los pares esperan 1ms al inicio? Para que no todos arranquen al mismo tiempo y se bloqueen desde el principio.
