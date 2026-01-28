@@ -1,13 +1,8 @@
-Los filósofos (hilos/threads) se sientan alrededor de una mesa redonda con un bol de espaguetis en medio.
-Tienen un tenedor en cada lado (dcha e izqd que son los mutex, ya que comparten recursos comparten tenedores), y deberán tomar turnos para comer, pensar o dormir.
-Solo se permite una acción a la vez. Cuando un filośofo termine de comer, dejará los tenedores en la mesa e inmediatamente empieza a dormir. Una vez despierta, empieza a pensar. 
-No debe morir nadie por inanición. Los filosofos ni hablan entre ellos, ni saben si otro filósofo va a morir.
-
 Argumentos válidos:
 1.number_of_philosophers (y de tenedores) n - 1, n, n + 1
-2.time_to_die (milisegundos)
-3.time_to_eat (milisegundos)
-4.time_to_sleep (milisegundos)
+2.time_to_die (ms)
+3.time_to_eat (ms)
+4.time_to_sleep (ms)
 5.number_of_times_each_philosopher_must_eat (opcional)
 
 Cualquier cambio de estado de un filósofo debe tener el siguiente formato:
@@ -21,13 +16,6 @@ No pueden pasar más de 10ms entre la muerte de un filósofo y el momento en el
 que imprimes su muerte.
 
 Nada de variables globales, nada de data race.
-
-En otras palabras:
--Cada filósofo es un hilo (pthread_create).
--Cada tenedor es un mutex (pthread_mutex_t).
--Los filósofos compiten por los tenedores → problema clásico de sincronización.
--Debes controlar tiempos con gettimeofday y usleep.
--Debes imprimir logs sin que se mezclen → otro mutex.
 
 FUNCIONES PERMITIDAS y para que se usan:
 memset, printf, malloc, free, write, usleep 
@@ -43,55 +31,57 @@ pthread_mutex_destroy: destruye un mutex se usa al final del programa para liber
 pthread_mutex_lock: bloquea un mutex, osea que coge un tenedor y si otro filósofo lo tiene, este hilo se queda esperando
 pthread_mutex_unlock: desbloquea un mutex, osea que suelta un tenedor y permite que el otro filósofo lo use
 
-Ejemplo: 6 800 200 200 5
-Esto significa que hay 6 filosofos/tenedores, mueren si pasan 800 ms sin comer,
-tardan 200ms en comer, 200ms en dormir y la simulacion termina cuando todos han comido
-5 veces.
+En otras palabras:
+-Cada filósofo es un hilo (pthread_create).
+-Cada tenedor requiere de un mutex, candado, para que no accedan a la vez al mismo recurso (pthread_mutex_t).
+-Los filósofos compiten por los tenedores → problema clásico de sincronización.
+-Debes controlar tiempos con gettimeofday y usleep.
+-Debes imprimir logs sin que se mezclen → otro mutex.
 
 MAIN: debe ser limpio y pequeño
 1.Declarar t_data data ✅
 2.Comprobar número de argumentos ✅
 3.Validar argumentos ✅
-4.Inicializar data con los argumentos 
-5.Si hay 1 filósofo → caso especial
+4.Inicializar data con los argumentos ✅
+5.Si hay 1 filósofo → caso especial ✅
 6.Iniciar la simulación 
-7.Limpiar memoria
-8.Salir
+7.Limpiar memoria ✅
+8.Salir ✅
 
-INICIALIZAR:
-convertir argumentos a ints
-reservar memoria para forks
-reservar memoria para philos
-inicializar mutexes
-asignar left_fork y right_fork a cada filósofo
-guardar start_time
-
-CREAR LOS HILOS:
-En start_simulation:
-recorres el array de filósofos
-llamas a pthread_create para cada uno
-creas un hilo monitor que vigile muertes
-
-ESCRIBIR LA RUTINA DEL FILOSOFO:
-while (!data->dead)
-{
-	nace
-    pensar
-    coger tenedores
-    comer: empieza a comer, terminar de comer, termina de dormir
-	empieza a comer otra vez
-	termina de comer
-}
-
-ESCRIBIR MONITOR o VIGILANTE: este revisa si un filosofo lleva demasiado sin comer
-o si todos han comido must_eat_veces. Si detecta muerte, marca data->dead = 1
-Imprime died, termina la simulacion.
-
-Limpieza: destruir mutexes y liberacion de memoria.
-
--todos se bloquean// esperando a comer es deadlock
+-todos se bloquean//esperan a comer: eso es DEADLOCK. Lo de asignar tenedor derecho a los impares e izquierdo
+a los pares (o al revés...), además de que los pares esperan a arrancar 1ms y es para evitar el deadlock y que se crucen sus procesos.
 -los filosofos pares cogen el tenedor izquierdo primero, y los impares el derecho
 -¿Qué hace pthread_mutex_lock? Es como cerrar un candado. Si otro hilo intenta cerrarlo, ESPERA hasta que se abra.
--¿Por qué last_meal = get_time()? Para que el monitor sepa que acaba de comer y NO lo mate.
--¿Qué pasa si no uso la estrategia par/impar? Deadlock. Todos esperan tenedores y nadie avanza.
--¿Por qué los pares esperan 1ms al inicio? Para que no todos arranquen al mismo tiempo y se bloqueen desde el principio.
+
+Explicación para dummies:
+Un ejemplo para probar sería: 4 310 200 100
+Este caso debe fallar, osea, debe morir un filósofo. 
+¿Qué flujo sigue esto?
+Pues tenemos 4 filósofos alrededor de una mesa redonda con un plato de pasta.
+Entre filósofo y filósofo, hay un tenedor, así que hay 4 tenedores en total también.
+310ms (time_to_die) significa que eso es el tiempo máximo que puede pasar desde la
+última vez que comió un filósofo hasta que empiece a comer de nuevo este. Y si un 
+filósofo no come en 310ms, muere.
+Tardan 200ms en comer (time_to_eat) y tardan 100ms en dormir (time_to_sleep)
+
+Ciclo completo o rutina de un filósofo:
+PENSAR (instantáneo) + COMER (200ms) + DORMIR (100ms) = ~300ms
+Cuando un filośofo termine de comer, dejará los tenedores en la mesa e inmediatamente empieza a dormir. Una vez despierta, empieza a pensar. 
+Con 4 filósofos y 4 tenedores:
+- Solo 2 pueden comer a la vez (los que NO comparten tenedores) osea en este caso impares, 1 y 3.
+- Los otros no, pares, deben ESPERAR
+El tiempo de espera máxima = 300ms (mientras otros comen y duermen)
+- Si `tiempo_actual - last_meal > 310ms` → MUERE
+- Ciclo (comer + dormir) = 300ms
+- Esperar turno + margen = fácilmente >310ms → MUERTE
+*Los pares esperan 1ms al inicio
+El monitor es un hilo separado y revisa cada 1ms si alguien lleva >time_to_die sin comer
+
+T=0ms     → Todos nacen (last_meal = 0)
+T=5ms     → Philo1 y Philo3 empiezan a COMER (last_meal = 5)
+T=205ms   → Philo1 y Philo3 terminan, empiezan a DORMIR
+T=205ms   → Philo2 y Philo4 empiezan a COMER (last_meal = 205)
+T=305ms   → Philo1 y Philo3 despiertan, ESPERAN tenedores
+T=315ms   → Philo1: 315 - 5 = 310ms SIN COMER → MUERTE ☠️
+
+Monitor imprime: "315 1 died"

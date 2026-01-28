@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:42:37 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/27 19:12:51 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/28 20:00:42 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	init_data(t_data *data, int argc, char **argv)
 	data->dead = 0;
 	data->start_time = get_time();
 	pthread_mutex_init(&data->log_mutex, NULL);
-	pthtread_mutex_init(&data->death_mutex, NULL);
+	pthread_mutex_init(&data->death_mutex, NULL);
 	data->forks = NULL;
 	data->philos = NULL;
 	return (0);
@@ -69,30 +69,3 @@ int	init_philos(t_data *data)
 	}
 	return (0);
 }
-
-/*
-typedef struct s_data
-{
-	int				number_of_philosophers;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
-	int				must_eat;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	log_mutex;
-	t_philo			*philos;
-	long			start_time;
-	int				dead;
-}	t_data;
-*/
-
-/*
-pthread_mutex_t mi_candado;  (Declarar el candado)
-pthread_mutex_init(&mi_candado, NULL); (Crearlo/inicializarlo)
-
-pthread_mutex_lock(&mi_candado); (Cerrar el candado)
-
-código ya protegido
-pthread_mutex_unlock(&mi_candado); (Abrir el candado)
-pthread_mutex_destroy(&mi_candado); (Destruirlo al final)
-*/

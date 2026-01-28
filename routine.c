@@ -6,11 +6,9 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 20:03:48 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/27 20:12:26 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/01/28 20:39:12 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "philo.h"
 
 #include "philo.h"
 
@@ -24,13 +22,55 @@ int	check_death(t_data *data)
 	return (dead);
 }
 
+void	philo_think(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->log_mutex);
+	printf("%ld %d is thinking\n", get_time() - \
+philo->data->start_time, philo->id);
+	pthread_mutex_unlock(&philo->data->log_mutex);
+}
+
+void	philo_eat(t_philo	*philo)
+{
+	t_data	*data;
+
+	data = philo->data;
+	pthread_mutex_lock(&data->forks[philo->left_fork]);
+	pthread_mutex_lock(&data->log_mutex);
+	printf("%ld %d has taken a fork\n", get_time() \
+- data->start_time, philo->id);
+	pthread_mutex_unlock(&data->log_mutex);
+	pthread_mutex_lock(&data->forks[philo->right_fork]);
+	pthread_mutex_lock(&data->log_mutex);
+	printf("%ld %d has taken a fork\n", get_time() \
+- data->start_time, philo->id);
+	pthread_mutex_unlock(&data->log_mutex);
+	pthread_mutex_lock(&data->log_mutex);
+	printf("%ld %d is eating\n", get_time() - \
+data->start_time, philo->id);
+	pthread_mutex_unlock(&data->log_mutex);
+	philo->last_meal = get_time();
+	safe_sleep(data->time_to_eat);
+	pthread_mutex_unlock(&data->forks[philo->right_fork]);
+	pthread_mutex_unlock(&data->forks[philo->left_fork]);
+	philo->meals++;
+}
+
+void	philo_sleep(t_philo	*philo)
+{
+	pthread_mutex_lock(&philo->data->log_mutex);
+	printf("%ld %d is sleeping\n", get_time() - philo->data->start_time, \
+philo->id);
+	pthread_mutex_unlock(&philo->data->log_mutex);
+	safe_sleep(philo->data->time_to_sleep);
+
+}
+
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		ft_usleep(1);
 	while (!check_death(philo->data))
 	{
 		philo_think(philo);
