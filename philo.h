@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/28 20:37:08 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/02 20:34:29 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,7 @@ void	philo_think(t_philo *philo);
 void	philo_eat(t_philo	*philo);
 void	philo_sleep(t_philo	*philo);
 void	*philo_routine(void *arg);
+void	*monitor_routine(void	*arg);
+int		start_simulation(t_data *data);
 
 #endif
