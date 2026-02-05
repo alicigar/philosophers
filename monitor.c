@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:25:44 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/02 20:33:42 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/05 20:58:22 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@ void	*monitor_routine(void *arg)
 	int		i;
 	long	current_time;
 	long	time_since_meal;
+	int		all_ate;
 
 	data = (t_data *)arg;
 	while (1)
 	{
 		i = 0;
+		all_ate = 1;
 		while (i < data->number_of_philosophers)
 		{
 			current_time = get_time();
@@ -38,7 +40,16 @@ data->philos[i].id);
 				pthread_mutex_unlock(&data->death_mutex);
 				return (NULL);
 			}
+			if (data->must_eat != -1 && data->philos[i].meals < data->must_eat)
+				all_ate = 0;
 			i++;
+		}
+		if (data->must_eat != -1 && all_ate)
+		{
+			pthread_mutex_lock(&data->death_mutex);
+			data->dead = 1;
+			pthread_mutex_unlock(&data->death_mutex);
+			return (NULL);
 		}
 		usleep(1000);
 	}
