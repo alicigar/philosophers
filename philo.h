@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/02 20:34:29 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/08 22:23:27 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,14 @@
 # define PHILO_H
 
 //libs
-# include <string.h>//-> memset
-# include <stdio.h>//-> printf
-# include <stdlib.h>//-> malloc, free 
-# include <unistd.h>//-> write, usleep 
-# include <sys/time.h>//-> gettimeofday (te lo da en microsegundos y lo pide en milisegundos)
-# include <pthread.h>/*-> pthread_create, pthread_detach, 
-pthread_join, pthread_mutex_init, pthread_mutex_destroy,
-pthread_mutex_lock, pthread_mutex_unlock*/
+# include <string.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <sys/time.h>
+# include <pthread.h>
 
-//structs
 struct	s_data;
-
-//ESTRUCTURA DEL FILOSOFO
-//id ✅
-//contador de comidas ✅
-//tiempo de ultima comida ✅
-//puntero a la ESTRUCTURA GENERAL ✅
-//su hilo ✅
-//indices de tenedor izqdo y tenedor dcho ✅
 
 typedef struct s_philo
 {
@@ -43,15 +32,8 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				left_fork;
 	int				right_fork;
+	pthread_mutex_t	meal_mutex;
 }	t_philo;
-
-//ESTRUCTURA GENERAL
-//parametros de entrada ✅
-//array de mutexes/tenedores 
-//mutex para imprimir 
-//array de filosofos 
-//tiempo de inicio 
-//flag de muerte
 
 typedef struct s_data
 {
@@ -85,6 +67,8 @@ void	philo_think(t_philo *philo);
 void	philo_eat(t_philo	*philo);
 void	philo_sleep(t_philo	*philo);
 void	*philo_routine(void *arg);
+int		check_philosopher_death(t_data *data, int i);
+int		check_all_ate(t_data *data);
 void	*monitor_routine(void	*arg);
 int		start_simulation(t_data *data);
 

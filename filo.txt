@@ -101,7 +101,6 @@ TEST:
 10      Fail    [x]     1011 1 died
 0 % correct
 
-
 TEST:
 Testing uneven numbers (overkill) - they shouldn't die
 
@@ -116,6 +115,19 @@ Testing uneven numbers (overkill) - they shouldn't die
 8       Fail    [x]     4211 4 died
 9       Fail    [x]     811 2 died
 10      Fail    [x]     1811 2 died
+0 % correct
+
+50 400 200 200 10
+1       Fail    [x]     801 25 has taken a fork
+2       Fail    [x]     2201 43 is sleeping
+3       Fail    [x]     3801 25 is sleeping
+4       Fail    [x]     3800 18 is eating
+5       Fail    [x]     1201 45 has taken a fork
+6       Fail    [x]     3801 32 is eating
+7       Fail    [x]     801 48 is sleeping
+8       Fail    [x]     3801 26 is eating
+9       Fail    [x]     601 38 is thinking
+10      Fail    [x]     3801 29 is sleeping
 0 % correct
 
 31 600 200 200 10
@@ -209,6 +221,20 @@ Testing uneven numbers (overkill) - they shouldn't die
 10      Pass    [✓]     401 1 died
 60 % correct
 
+50 399 200 200 10
+1       Pass    [✓]     400 1 died
+2       Pass    [✓]     400 1 died
+3       Fail    [x]     1200 5 has taken a fork
+4       Pass    [✓]     400 1 died
+5       Fail    [x]     600 26 is eating
+6       Pass    [✓]     400 1 died
+7       Fail    [x]     600 26 has taken a fork
+8       Pass    [✓]     400 1 died
+9       Pass    [✓]     400 1 died
+10      Fail    [x]     401 45 is thinking
+60 % correct
+
+
 TEST:
 31 599 200 200 10
 1       Pass    [✓]     800 2 died
@@ -221,6 +247,19 @@ TEST:
 8       Pass    [✓]     600 29 died
 9       Pass    [✓]     601 29 died
 10      Pass    [✓]     600 29 died
+70 % correct
+
+130 399 200 200 10
+1       Fail    [x]     401 3 has taken a fork
+2       Pass    [✓]     400 1 died
+3       Fail    [x]     400 4 is sleeping
+4       Fail    [x]     401 48 is sleeping
+5       Pass    [✓]     401 1 died
+6       Pass    [✓]     400 1 died
+7       Pass    [✓]     400 1 died
+8       Pass    [✓]     400 1 died
+9       Pass    [✓]     400 1 died
+10      Pass    [✓]     400 1 died
 70 % correct
 
 31 610 200 100 10

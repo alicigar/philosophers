@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:42:37 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/28 20:00:42 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/08 22:23:47 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	init_data(t_data *data, int argc, char **argv)
 	data->time_to_die = ft_atoi(argv[2]);
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
-
 	if (argc == 6)
 		data->must_eat = ft_atoi(argv[5]);
 	else
@@ -65,6 +64,7 @@ int	init_philos(t_data *data)
 		data->philos[i].last_meal = get_time();
 		data->philos[i].left_fork = i;
 		data->philos[i].right_fork = (i + 1) % data->number_of_philosophers;
+		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
 		i++;
 	}
 	return (0);

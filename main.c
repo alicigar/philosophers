@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:25:47 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/02 22:24:08 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/08 22:30:59 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,5 @@ int	main(int argc, char **argv)
 	}
 	start_simulation(&data);
 	cleanup(&data);
-	/*printf("argv[1] = %s\n", argv[1]);
-	printf("argv[2] = %s\n", argv[2]);
-	printf("argv[3] = %s\n", argv[3]);
-	printf("argv[4] = %s\n", argv[4]);
-	if (argc == 6) 
-		printf("argv[5] = %s\n", argv[5]);*/
 	return (0);
 }
