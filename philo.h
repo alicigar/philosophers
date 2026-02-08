@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/08 22:23:27 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/08 23:38:19 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_philo
 	struct s_data	*data;
 	int				id;
 	int				meals;
-	long			last_meal; //long por overflow con int
+	long			last_meal;
 	pthread_t		thread;
 	int				left_fork;
 	int				right_fork;
