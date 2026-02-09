@@ -88,215 +88,71 @@ Monitor imprime: "315 1 died"
 
 
 TEST: 	
+5 800 200 200 7 (correcto pero posible data races porque los tiempos)
+1       Pass    [✓]     3800 4 has taken a fork
+2       Pass    [✓]     4400 2 is eating
+3       Pass    [✓]     3400 4 is eating
+4       Pass    [✓]     5000 2 is eating
+5       Pass    [✓]     3801 2 is eating
+6       Pass    [✓]     3600 4 has taken a fork
+7       Pass    [✓]     3600 2 is eating
+8       Pass    [✓]     3800 5 is eating
+9       Pass    [✓]     3800 3 is sleeping
+10      Pass    [✓]     4601 4 is eating
+100 % correct
+
+
 5 610 200 200 10
 1       Fail    [x]     1211 4 died
-2       Fail    [x]     811 2 died
-3       Fail    [x]     811 2 died
-4       Fail    [x]     811 2 died
-5       Fail    [x]     1211 4 died
+2       Fail    [x]     1212 4 died
+3       Fail    [x]     812 2 died
+4       Fail    [x]     611 3 died
+5       Fail    [x]     611 3 died
 6       Fail    [x]     811 2 died
 7       Fail    [x]     811 2 died
-8       Fail    [x]     611 3 died
+8       Fail    [x]     811 2 died
 9       Fail    [x]     811 2 died
-10      Fail    [x]     1011 1 died
-0 % correct
+10      Fail    [x]     611 3 died
+0 % correct 
 
-TEST:
-Testing uneven numbers (overkill) - they shouldn't die
+otros test:
 
-5 610 200 100 10
-1       Fail    [x]     1211 4 died
-2       Fail    [x]     2211 4 died
-3       Fail    [x]     1011 1 died
-4       Fail    [x]     811 2 died
-5       Fail    [x]     812 2 died
-6       Fail    [x]     811 2 died
-7       Fail    [x]     1211 4 died
-8       Fail    [x]     4211 4 died
-9       Fail    [x]     811 2 died
-10      Fail    [x]     1811 2 died
-0 % correct
-
-50 400 200 200 10
-1       Fail    [x]     801 25 has taken a fork
-2       Fail    [x]     2201 43 is sleeping
-3       Fail    [x]     3801 25 is sleeping
-4       Fail    [x]     3800 18 is eating
-5       Fail    [x]     1201 45 has taken a fork
-6       Fail    [x]     3801 32 is eating
-7       Fail    [x]     801 48 is sleeping
-8       Fail    [x]     3801 26 is eating
-9       Fail    [x]     601 38 is thinking
-10      Fail    [x]     3801 29 is sleeping
-0 % correct
-
-31 600 200 200 10
-1       Fail    [x]     4001 2 is sleeping
-2       Fail    [x]     4000 30 is eating
-3       Fail    [x]     4001 9 is eating
-4       Fail    [x]     4001 9 is eating
-5       Fail    [x]     4000 14 is eating
-6       Pass    [✓]     601 29 died
-7       Fail    [x]     4000 14 is eating
-8       Fail    [x]     4000 16 is eating
-9       Fail    [x]     4001 3 has taken a fork
-10      Fail    [x]     4001 1 is eating
-10 % correct
-
-198 401 200 200 10
-1       Fail    [x]     403 1 died
-2       Fail    [x]     402 1 died
-3       Fail    [x]     402 1 died
-4       Fail    [x]     403 1 died
-5       Fail    [x]     402 1 died
-6       Pass    [✓]     403 175 has taken a fork
-7       Fail    [x]     402 1 died
-8       Fail    [x]     403 1 died
-9       Pass    [✓]     402 121 has taken a fork
-10      Pass    [✓]     402 147 has taken a fork
-30 % correct
-
-31 610 200 200 10
-1       Fail    [x]     1212 4 died
-2       Pass    [✓]     4000 28 is eating
-3       Fail    [x]     612 29 died
-4       Fail    [x]     2011 8 died
-5       Pass    [✓]     4000 1 is eating
-6       Pass    [✓]     4001 5 is eating
-7       Fail    [x]     812 2 died
-8       Pass    [✓]     4000 18 is eating
-9       Fail    [x]     612 29 died
-10      Fail    [x]     3011 17 died
-40 % correct
-
-31 599 200 200 10
+Testing even numbers - one should die (resultado esperado pero data races)
+3 599 200 200 10
 1       Pass    [✓]     800 2 died
-2       Pass    [✓]     1601 6 died
-3       Pass    [✓]     1600 6 died
-4       Fail    [x]     601 16 is thinking
-5       Fail    [x]     3200 16 is sleeping
+2       Pass    [✓]     1400 2 died
+3       Pass    [✓]     801 1 died
+4       Pass    [✓]     600 1 died
+5       Pass    [✓]     800 2 died
 6       Pass    [✓]     800 2 died
-7       Fail    [x]     4001 21 is sleeping
-8       Fail    [x]     4001 7 is eating
-9       Fail    [x]     4001 3 is eating
-10      Fail    [x]     1200 7 has taken a fork
-40 % correct
+7       Pass    [✓]     800 2 died
+8       Pass    [✓]     801 2 died
+9       Pass    [✓]     801 2 died
+10      Pass    [✓]     800 2 died
+	100 % correct
 
-31 605 200 200 10
-1       Pass    [✓]     4000 16 is eating
-2       Pass    [✓]     4001 7 is eating
-3       Pass    [✓]     4001 27 is sleeping
-4       Fail    [x]     1006 27 died
-5       Pass    [✓]     4000 9 is thinking
-6       Fail    [x]     806 2 died
-7       Pass    [✓]     4000 22 is eating
-8       Fail    [x]     1006 27 died
-9       Fail    [x]     1206 4 died
-10      Fail    [x]     1206 4 died
-50 % correct
-
-31 601 200 200 10
-1       Pass    [✓]     4000 1 is eating
-2       Pass    [✓]     4001 14 is eating
-3       Fail    [x]     1003 27 died
-4       Fail    [x]     602 29 died
-5       Fail    [x]     2402 10 died
-6       Pass    [✓]     4001 9 is eating
-7       Fail    [x]     603 29 died
-8       Fail    [x]     602 29 died
-9       Pass    [✓]     4001 28 is eating
-10      Pass    [✓]     4001 9 is eating
-50 % correct
-
-130 400 200 200 10
-1       Pass    [✓]     401 1 died
-2       Fail    [x]     402 112 is sleeping
-3       Pass    [✓]     401 1 died
-4       Fail    [x]     402 113 is thinking
-5       Fail    [x]     402 117 has taken a fork
-6       Fail    [x]     802 78 is sleeping
-7       Pass    [✓]     401 1 died
-8       Pass    [✓]     401 1 died
-9       Pass    [✓]     401 1 died
-10      Pass    [✓]     401 1 died
-60 % correct
-
-50 399 200 200 10
-1       Pass    [✓]     400 1 died
-2       Pass    [✓]     400 1 died
-3       Fail    [x]     1200 5 has taken a fork
-4       Pass    [✓]     400 1 died
-5       Fail    [x]     600 26 is eating
-6       Pass    [✓]     400 1 died
-7       Fail    [x]     600 26 has taken a fork
-8       Pass    [✓]     400 1 died
-9       Pass    [✓]     400 1 died
-10      Fail    [x]     401 45 is thinking
-60 % correct
-
-
-TEST:
 31 599 200 200 10
 1       Pass    [✓]     800 2 died
-2       Fail    [x]     600 8 has taken a fork
-3       Pass    [✓]     1000 27 died
-4       Fail    [x]     4001 5 is eating
-5       Fail    [x]     4000 5 is eating
-6       Pass    [✓]     600 29 died
-7       Pass    [✓]     1400 25 died
-8       Pass    [✓]     600 29 died
-9       Pass    [✓]     601 29 died
-10      Pass    [✓]     600 29 died
-70 % correct
+2       Fail    [x]     1200 9 is eating
+3       Fail    [x]     4001 7 is eating
+4       Fail    [x]     4000 16 is eating
+5       Fail    [x]     4001 3 is eating
+6       Fail    [x]     4000 18 is eating
+7       Fail    [x]     4000 14 is eating
+8       Fail    [x]     1200 9 is eating
+9       Fail    [x]     4000 1 is eating
+10      Fail    [x]     4000 2 is sleeping
+	10 % correct
 
-130 399 200 200 10
-1       Fail    [x]     401 3 has taken a fork
-2       Pass    [✓]     400 1 died
-3       Fail    [x]     400 4 is sleeping
-4       Fail    [x]     401 48 is sleeping
-5       Pass    [✓]     401 1 died
-6       Pass    [✓]     400 1 died
-7       Pass    [✓]     400 1 died
-8       Pass    [✓]     400 1 died
-9       Pass    [✓]     400 1 died
-10      Pass    [✓]     400 1 died
-70 % correct
-
-31 610 200 100 10
-1       Pass    [✓]     4001 24 is eating
-2       Pass    [✓]     4001 1 is eating
-3       Pass    [✓]     4001 26 is eating
-4       Fail    [x]     812 2 died
-5       Fail    [x]     811 2 died
-6       Pass    [✓]     4000 18 is eating
-7       Pass    [✓]     4001 1 is eating
-8       Pass    [✓]     4001 30 is eating
-9       Pass    [✓]     4001 9 is eating
-10      Pass    [✓]     4001 18 is eating
-80 % correct
-
-198 400 200 200 10
-1       Pass    [✓]     401 1 died
-2       Pass    [✓]     401 1 died
-3       Pass    [✓]     401 1 died
-4       Pass    [✓]     401 1 died
-5       Fail    [x]     403 141 has taken a fork
-6       Pass    [✓]     401 1 died
-7       Pass    [✓]     401 1 died
-8       Pass    [✓]     401 1 died
-9       Fail    [x]     401 38 is sleeping
-10      Pass    [✓]     401 1 died
-80 % correct
-
-199 605 200 200 10
-1       Pass    [✓]     4003 103 is eating
-2       Pass    [✓]     4002 126 is sleeping
-3       Fail    [x]     3409 183 died
-4       Pass    [✓]     4001 11 is eating
-5       Pass    [✓]     4002 74 is sleeping
-6       Pass    [✓]     4000 3 is eating
-7       Pass    [✓]     4000 188 is eating
-8       Pass    [✓]     4001 71 is thinking
-9       Pass    [✓]     4002 77 is eating
-10      Pass    [✓]     4004 69 is eating
-90 % correct
+	131 596 200 200 10
+1       Pass    [✓]     599 129 died
+2       Pass    [✓]     599 129 died
+3       Pass    [✓]     599 129 died
+4       Pass    [✓]     599 129 died
+5       Pass    [✓]     599 129 died
+6       Pass    [✓]     599 129 died
+7       Pass    [✓]     599 129 died
+8       Fail    [x]     800 24 is sleeping
+9       Pass    [✓]     599 129 died
+10      Pass    [✓]     599 129 died
+	90 % correct

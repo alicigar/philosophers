@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 20:03:48 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/08 23:39:17 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/09 19:59:01 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		usleep(1000);
+		usleep(500);
 	while (!check_death(philo->data))
 	{
-		philo_think(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
+		philo_think(philo);
 	}
 	return (NULL);
 }
