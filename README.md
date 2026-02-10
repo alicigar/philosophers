@@ -1,6 +1,8 @@
+### Philosophers
+
 *This project has been created as a part of the 42 curriculum by alicigar.*
 
-## Description
+## **Description**
 
 The Dining Philosophers Problem is an example often used in computer science and so well known that it has even been referenced is series such as _Pantheon_.
 
