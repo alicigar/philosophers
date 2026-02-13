@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/14 20:12:09 by alicigar          #+#    #+#             */
-/*   Updated: 2026/01/26 18:57:43 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/13 21:37:30 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,3 @@ int	input_checker(int argc, char **argv)
 	}
 	return (0);
 }
-
-//que cada argumento es un numero valido
-//que no haya numeros negativos
-//que time_to_die, time_to_eat, time_to_sleep no sean 0
-//y must_eat SI puede ser 0
-//que no haya overflow
-//si pones 0 filosofos, no hay simulacion

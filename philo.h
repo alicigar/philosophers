@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/13 18:32:05 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/13 22:07:12 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				left_fork;
 	int				right_fork;
+	/*int				priority;*/
 	pthread_mutex_t	meal_mutex;
 }	t_philo;
 
