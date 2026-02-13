@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:42:37 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/08 22:23:47 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/13 18:38:57 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,23 @@ int	init_philos(t_data *data)
 		data->philos[i].right_fork = (i + 1) % data->number_of_philosophers;
 		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
 		i++;
+	}
+	return (0);
+}
+
+int	initialize_all(t_data *data, int argc, char **argv)
+{
+	if (init_data(data, argc, argv))
+		return (1);
+	if (init_forks(data))
+	{
+		cleanup(data);
+		return (1);
+	}
+	if (init_philos(data))
+	{
+		cleanup(data);
+		return (1);
 	}
 	return (0);
 }

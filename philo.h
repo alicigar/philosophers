@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/09 18:36:08 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/13 18:32:05 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	safe_sleep(long time_in_ms);
 int		init_data(t_data *data, int argc, char **argv);
 int		init_forks(t_data *data);
 int		init_philos(t_data *data);
+int		initialize_all(t_data *data, int argc, char **argv);
 void	cleanup(t_data *data);
 int		check_death(t_data *data);
 void	philo_think(t_philo *philo);

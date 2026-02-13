@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:25:47 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/08 22:30:59 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/13 18:33:22 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,8 @@ int	main(int argc, char **argv)
 		printf("Error: wrong input\n");
 		return (1);
 	}
-	if (init_data(&data, argc, argv))
+	if (initialize_all(&data, argc, argv))
 		return (1);
-	if (init_forks(&data))
-	{
-		cleanup(&data);
-		return (1);
-	}
-	if (init_philos(&data))
-	{
-		cleanup(&data);
-		return (1);
-	}
 	if (data.number_of_philosophers == 1)
 	{
 		printf("0 1 has taken a fork\n");
