@@ -1,158 +1,43 @@
-Argumentos válidos:
-1.number_of_philosophers (y de tenedores) n - 1, n, n + 1
-2.time_to_die (ms)
-3.time_to_eat (ms)
-4.time_to_sleep (ms)
-5.number_of_times_each_philosopher_must_eat (opcional)
+FAILURES
+they shouldn't die:
+199 610 200 200 10:
+1       Fail    [x]     612 151 died
+2       Fail    [x]     613 127 died
+3       Pass    [✓]     4002 95 is eating
+4       Fail    [x]     612 107 died
+5       Pass    [✓]     4001 1 is eating
+6       Pass    [✓]     4001 43 is eating
+7       Pass    [✓]     4002 97 is eating
+8       Fail    [x]     612 93 died
+9       Fail    [x]     612 101 died
+10      Pass    [✓]     4001 28 is sleeping
+50 % correct
 
-Cualquier cambio de estado de un filósofo debe tener el siguiente formato:
-◦ timestamp_in_ms X has taken a fork
-◦ timestamp_in_ms X is eating
-◦ timestamp_in_ms X is sleeping
-◦ timestamp_in_ms X is thinking
-◦ timestamp_in_ms X died
+198 610 200 200 10:
+1       Pass    [✓]     3805 12 is eating
+2       Fail    [x]     612 125 died
+3       Pass    [✓]     3803 176 is eating
+4       Pass    [✓]     3805 12 is eating
+5       Fail    [x]     611 87 died
+6       Pass    [✓]     3803 4 is eating
+7       Pass    [✓]     3804 178 is eating
+8       Fail    [x]     612 143 died
+9       Fail    [x]     614 163 died
+10      Pass    [✓]     3803 132 is eating
+60 % correct
 
-No pueden pasar más de 10ms entre la muerte de un filósofo y el momento en el
-que imprimes su muerte.
-
-Nada de variables globales, nada de data race.
-
-FUNCIONES PERMITIDAS y para que se usan:
-memset, printf, malloc, free, write, usleep 
-gettimeofday: sirve para calcular el tiempo desde que empezó la simulación, también para saber
-cuando comió un filósofo por última vez y además para imprimir timestamps en los logs.
-
-pthread_create: crea un hilo por cada filósofo y hacer que cada uno ejecute el pensar, comer o dormir
-pthread_detach: desvincula un hilo del programa principal, se usa en hilos que no es necesario esperar osea sin necesidad de usar join
-pthread_join: se usa para esperar que todos los filósofos acaben aunque muchas implementaciones
-no terminan hasta que alguien muere
-pthread_mutex_init: inicializa un mutex(candado)
-pthread_mutex_destroy: destruye un mutex se usa al final del programa para liberar memoria
-pthread_mutex_lock: bloquea un mutex, osea que coge un tenedor y si otro filósofo lo tiene, este hilo se queda esperando
-pthread_mutex_unlock: desbloquea un mutex, osea que suelta un tenedor y permite que el otro filósofo lo use
-
-En otras palabras:
--Cada filósofo es un hilo (pthread_create).
--Cada tenedor requiere de un mutex, candado, para que no accedan a la vez al mismo recurso (pthread_mutex_t).
--Los filósofos compiten por los tenedores → problema clásico de sincronización.
--Debes controlar tiempos con gettimeofday y usleep.
--Debes imprimir logs sin que se mezclen → otro mutex.
-
-MAIN: debe ser limpio y pequeño
-1.Declarar t_data data ✅
-2.Comprobar número de argumentos ✅
-3.Validar argumentos ✅
-4.Inicializar data con los argumentos ✅
-5.Si hay 1 filósofo → caso especial ✅
-6.Iniciar la simulación 
-7.Limpiar memoria ✅
-8.Salir ✅
-
--todos se bloquean//esperan a comer: eso es DEADLOCK. Lo de asignar tenedor derecho a los impares e izquierdo
-a los pares (o al revés...), además de que los pares esperan a arrancar 1ms y es para evitar el deadlock y que se crucen sus procesos.
--los filosofos pares cogen el tenedor izquierdo primero, y los impares el derecho
--¿Qué hace pthread_mutex_lock? Es como cerrar un candado. Si otro hilo intenta cerrarlo, ESPERA hasta que se abra.
-
-Explicación para dummies:
-Un ejemplo para probar sería: 4 310 200 100
-Este caso debe fallar, osea, debe morir un filósofo. 
-¿Qué flujo sigue esto?
-Pues tenemos 4 filósofos alrededor de una mesa redonda con un plato de pasta.
-Entre filósofo y filósofo, hay un tenedor, así que hay 4 tenedores en total también.
-310ms (time_to_die) significa que eso es el tiempo máximo que puede pasar desde la
-última vez que comió un filósofo hasta que empiece a comer de nuevo este. Y si un 
-filósofo no come en 310ms, muere.
-Tardan 200ms en comer (time_to_eat) y tardan 100ms en dormir (time_to_sleep)
-
-Ciclo completo o rutina de un filósofo:
-PENSAR (instantáneo) + COMER (200ms) + DORMIR (100ms) = ~300ms
-Cuando un filośofo termine de comer, dejará los tenedores en la mesa e inmediatamente empieza a dormir. Una vez despierta, empieza a pensar. 
-Con 4 filósofos y 4 tenedores:
-- Solo 2 pueden comer a la vez (los que NO comparten tenedores) osea en este caso impares, 1 y 3.
-- Los otros no, pares, deben ESPERAR
-El tiempo de espera máxima = 300ms (mientras otros comen y duermen)
-- Si `tiempo_actual - last_meal > 310ms` → MUERE
-- Ciclo (comer + dormir) = 300ms
-- Esperar turno + margen = fácilmente >310ms → MUERTE
-*Los pares esperan 1ms al inicio
-El monitor es un hilo separado y revisa cada 1ms si alguien lleva >time_to_die sin comer
-
-T=0ms     → Todos nacen (last_meal = 0)
-T=5ms     → Philo1 y Philo3 empiezan a COMER (last_meal = 5)
-T=205ms   → Philo1 y Philo3 terminan, empiezan a DORMIR
-T=205ms   → Philo2 y Philo4 empiezan a COMER (last_meal = 205)
-T=305ms   → Philo1 y Philo3 despiertan, ESPERAN tenedores
-T=315ms   → Philo1: 315 - 5 = 310ms SIN COMER → MUERTE ☠️
-
-Monitor imprime: "315 1 died"
+198 800 200 200 10:
+1       Fail    [x]     2402 129 died
+2       Pass    [✓]     3804 18 is eating
+3       Fail    [x]     1402 88 died
+4       Pass    [✓]     4201 52 is eating
+5       Pass    [✓]     3803 142 is eating
+6       Pass    [✓]     3803 15 is sleeping
+7       Pass    [✓]     4203 183 is sleeping
+8       Pass    [✓]     3803 184 is eating
+9       Pass    [✓]     3807 4 is eating
+10      Pass    [✓]     3806 188 is eating
+80 % correct
 
 
-TEST: 	
-5 800 200 200 7 (correcto pero posible data races porque los tiempos)
-1       Pass    [✓]     3800 4 has taken a fork
-2       Pass    [✓]     4400 2 is eating
-3       Pass    [✓]     3400 4 is eating
-4       Pass    [✓]     5000 2 is eating
-5       Pass    [✓]     3801 2 is eating
-6       Pass    [✓]     3600 4 has taken a fork
-7       Pass    [✓]     3600 2 is eating
-8       Pass    [✓]     3800 5 is eating
-9       Pass    [✓]     3800 3 is sleeping
-10      Pass    [✓]     4601 4 is eating
-100 % correct
-
-
-5 610 200 200 10
-1       Fail    [x]     1211 4 died
-2       Fail    [x]     1212 4 died
-3       Fail    [x]     812 2 died
-4       Fail    [x]     611 3 died
-5       Fail    [x]     611 3 died
-6       Fail    [x]     811 2 died
-7       Fail    [x]     811 2 died
-8       Fail    [x]     811 2 died
-9       Fail    [x]     811 2 died
-10      Fail    [x]     611 3 died
-0 % correct 
-
-otros test:
-
-Testing even numbers - one should die (resultado esperado pero data races)
-3 599 200 200 10
-1       Pass    [✓]     800 2 died
-2       Pass    [✓]     1400 2 died
-3       Pass    [✓]     801 1 died
-4       Pass    [✓]     600 1 died
-5       Pass    [✓]     800 2 died
-6       Pass    [✓]     800 2 died
-7       Pass    [✓]     800 2 died
-8       Pass    [✓]     801 2 died
-9       Pass    [✓]     801 2 died
-10      Pass    [✓]     800 2 died
-	100 % correct
-
-31 599 200 200 10
-1       Pass    [✓]     800 2 died
-2       Fail    [x]     1200 9 is eating
-3       Fail    [x]     4001 7 is eating
-4       Fail    [x]     4000 16 is eating
-5       Fail    [x]     4001 3 is eating
-6       Fail    [x]     4000 18 is eating
-7       Fail    [x]     4000 14 is eating
-8       Fail    [x]     1200 9 is eating
-9       Fail    [x]     4000 1 is eating
-10      Fail    [x]     4000 2 is sleeping
-	10 % correct
-
-	131 596 200 200 10
-1       Pass    [✓]     599 129 died
-2       Pass    [✓]     599 129 died
-3       Pass    [✓]     599 129 died
-4       Pass    [✓]     599 129 died
-5       Pass    [✓]     599 129 died
-6       Pass    [✓]     599 129 died
-7       Pass    [✓]     599 129 died
-8       Fail    [x]     800 24 is sleeping
-9       Pass    [✓]     599 129 died
-10      Pass    [✓]     599 129 died
-	90 % correct
+Comprobar la funcion de muerte y que de los tiempos correctamente.

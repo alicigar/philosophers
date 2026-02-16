@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/26 18:03:03 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/13 21:37:54 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/16 13:46:47 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,5 @@ void	safe_sleep(long time_in_ms)
 
 	start = get_time();
 	while (get_time() - start < time_in_ms)
-		usleep(42);
+		usleep(100);
 }

@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:25:44 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/08 22:24:55 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/16 16:12:06 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	check_philosopher_death(t_data *data, int i)
 	last_meal_copy = data->philos[i].last_meal;
 	pthread_mutex_unlock(&data->log_mutex);
 	time_since_meal = current_time - last_meal_copy;
-	if (time_since_meal > data->time_to_die)
+	if (time_since_meal >= data->time_to_die)
 	{
 		pthread_mutex_lock(&data->log_mutex);
 		printf("%ld %d died\n", current_time - data->start_time, \

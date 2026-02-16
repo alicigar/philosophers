@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/12 16:23:45 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/13 22:07:12 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/16 15:01:12 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_philo
 	pthread_t		thread;
 	int				left_fork;
 	int				right_fork;
-	/*int				priority;*/
 	pthread_mutex_t	meal_mutex;
 }	t_philo;
 
@@ -67,8 +66,7 @@ void	cleanup(t_data *data);
 int		check_death(t_data *data);
 void	philo_think(t_philo *philo);
 void	philo_eat(t_philo	*philo);
-void	take_forks_even(t_philo *philo);
-void	take_forks_odd(t_philo *philo);
+void	take_forks(t_philo *philo);
 void	philo_sleep(t_philo	*philo);
 void	*philo_routine(void *arg);
 int		check_philosopher_death(t_data *data, int i);
