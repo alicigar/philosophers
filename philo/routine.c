@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 20:03:48 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/16 14:00:10 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/17 19:47:53 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	*philo_routine(void *arg)
 
 	philo = (t_philo *)arg;
 	if (philo->id % 2 == 0)
-		usleep(500);
+		usleep(50);
 	while (!check_death(philo->data))
 	{
 		philo_eat(philo);

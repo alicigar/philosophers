@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:25:44 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/16 16:12:06 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/17 20:01:25 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	*monitor_routine(void *arg)
 		}
 		if (check_all_ate(data))
 			return (NULL);
-		usleep(1000);
+		usleep(1);
 	}
 	return (NULL);
 }
