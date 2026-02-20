@@ -25,9 +25,9 @@ int	main(int argc, char **argv)
 		return (1);
 	if (data.number_of_philosophers == 1)
 	{
-		printf("0 1 has taken a fork\n");
+		printf("%ld 1 has taken a fork\n", get_time() - data.start_time);
 		safe_sleep(data.time_to_die);
-		printf("%d 1 died\n", data.time_to_die);
+		printf("%ld 1 died\n", get_time() - data.start_time);
 		cleanup(&data);
 		return (0);
 	}

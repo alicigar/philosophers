@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:42:37 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/16 14:49:33 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/20 20:09:21 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,21 @@ int	init_data(t_data *data, int argc, char **argv)
 	data->time_to_eat = ft_atoi(argv[3]);
 	data->time_to_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		data->must_eat = ft_atoi(argv[5]);
+		data->number_of_times_each_philosopher_must_eat = ft_atoi(argv[5]);
 	else
-		data->must_eat = -1;
+		data->number_of_times_each_philosopher_must_eat = -1;
 	data->dead = 0;
 	data->start_time = get_time();
-	pthread_mutex_init(&data->log_mutex, NULL);
-	pthread_mutex_init(&data->death_mutex, NULL);
 	data->forks = NULL;
 	data->philos = NULL;
+	pthread_mutex_init(&data->log_mutex, NULL);
+	pthread_mutex_init(&data->death_mutex, NULL);
 	return (0);
 }
 
 int	init_forks(t_data *data)
 {
-	int		i;
+	int	i;
 
 	data->forks = malloc(sizeof(pthread_mutex_t) * \
 data->number_of_philosophers);
@@ -62,8 +62,8 @@ int	init_philos(t_data *data)
 		data->philos[i].id = i + 1;
 		data->philos[i].meals = 0;
 		data->philos[i].last_meal = get_time();
-		data->philos[i].left_fork = i;
-		data->philos[i].right_fork = (i + 1) % data->number_of_philosophers;
+		data->philos[i].first_fork = i;
+		data->philos[i].second_fork = (i + 1) % data->number_of_philosophers;
 		pthread_mutex_init(&data->philos[i].meal_mutex, NULL);
 		i++;
 	}

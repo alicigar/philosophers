@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:42:51 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/17 19:56:20 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/20 19:29:02 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,49 @@ int	ft_atoi(const char *nptr)
 		nptr++;
 	}
 	return (neg * number);
+}
+
+long	get_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return (tv.tv_sec * 1000 + tv.tv_usec / 1000);
+}
+
+void	safe_sleep(long time_in_ms)
+{
+	long	start;
+
+	start = get_time();
+	while (get_time() - start < time_in_ms)
+		usleep(100);
+}
+
+void	cleanup(t_data *data)
+{
+	int	i;
+
+	if (data->forks)
+	{
+		i = 0;
+		while (i < data->number_of_philosophers)
+		{
+			pthread_mutex_destroy(&data->forks[i]);
+			i++;
+		}
+		free(data->forks);
+	}
+	if (data->philos)
+	{
+		i = 0;
+		while (i < data->number_of_philosophers)
+		{
+			pthread_mutex_destroy(&data->philos[i].meal_mutex);
+			i++;
+		}
+		free(data->philos);
+	}
+	pthread_mutex_destroy(&data->log_mutex);
+	pthread_mutex_destroy(&data->death_mutex);
 }

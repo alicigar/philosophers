@@ -52,7 +52,9 @@ valgrind --tool=drd ./philo 1 800 200 200
 
 The subject provided by 42 was used as a primary resource throughout the development process.
 
-Additional external resources (such as tutorials and technical articles) were consulted to reinforce understanding and will be listed in this section.
+Additional external resources (such as tutorials and technical articles) were consulted to reinforce understanding and will be listed in this section:
+https://42-cursus.gitbook.io/guide/3-rank-03/philosophers
+https://en.wikipedia.org/wiki/Dining_philosophers_problem
 
 During the development of this project, AI was used as a learning support tool, mainly to:
 -Clarify theoretical concepts related to concurrency, synchronization, and thread management.
