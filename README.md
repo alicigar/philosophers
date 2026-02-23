@@ -71,7 +71,9 @@ https://en.wikipedia.org/wiki/Dining_philosophers_problem
 During the development of this project, AI was used as a learning support tool, mainly to:
 
 -Clarify theoretical concepts related to concurrency, synchronization, and thread management.
+
 -Assist in writing and improving the project documentation.
+
 -Help formulate questions and compare design approaches, without generating o copying code directly.
 
 All AI-assisted content was reviewed, fully understood and validated, and all final design and implementation decisions were made consciously and responsibly. The project's code was entirely written and tested by me.
