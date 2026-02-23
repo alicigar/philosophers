@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/27 20:03:48 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/20 20:24:28 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/23 19:15:41 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,53 +31,31 @@ philo->data->start_time, philo->id, status);
 	pthread_mutex_unlock(&philo->data->log_mutex);
 }
 
-void	take_forks(t_philo *philo)
-{
-	t_data	*data;
-
-	data = philo->data;
-	pthread_mutex_lock(&data->forks[philo->first_fork]);
-	print_status(philo, "has taken a fork");
-	pthread_mutex_lock(&data->forks[philo->second_fork]);
-	print_status(philo, "has taken a fork");
-}
-
-void	philo_eat(t_philo *philo)
-{
-	t_data	*data;
-
-	data = philo->data;
-	take_forks(philo);
-	if (!check_death(data))
-	{
-		pthread_mutex_lock(&philo->meal_mutex);
-		philo->last_meal = get_time();
-		philo->meals++;
-		pthread_mutex_unlock(&philo->meal_mutex);
-		print_status(philo, "is eating");
-		safe_sleep(data->time_to_eat);
-	}
-	pthread_mutex_unlock(&data->forks[philo->second_fork]);
-	pthread_mutex_unlock(&data->forks[philo->first_fork]);
-}
-
 void	*philo_routine(void	*arg)
 {
 	t_philo	*philo;
+	t_data	*data;
 
 	philo = (t_philo *)arg;
-	if (philo->id % 2 == 0)
-		usleep(500);
+	data = philo->data;
+	if (philo->id % 2 != 0)
+		safe_sleep(data->time_to_eat);
 	while (!check_death(philo->data))
 	{
-		philo_eat(philo);
-		if (!check_death(philo->data))
+		if (philo_eat(philo))
 		{
-			print_status(philo, "is sleeping");
-			safe_sleep(philo->data->time_to_sleep);
+			if (!check_death(philo->data))
+			{
+				print_status(philo, "is sleeping");
+				safe_sleep(philo->data->time_to_sleep);
+			}
+			if (!check_death(philo->data))
+			{
+				print_status(philo, "is thinking");
+				if (data->number_of_philosophers % 2 != 0)
+					safe_sleep(1);
+			}
 		}
-		if (!check_death(philo->data))
-			print_status(philo, "is thinking");
 	}
 	return (NULL);
 }

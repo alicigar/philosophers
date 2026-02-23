@@ -24,7 +24,7 @@ Then, you will find the folder "philo", enter again.
 
 **Compilation**
 
-make
+	make
 
 **Execution**
 
@@ -36,17 +36,17 @@ With 6 arguments (number_of_times_each_philosopher_must_eat is an optional argum
 
 An example:
 
-./philo 5 800 200 200 7
+	./philo 5 800 200 200 7
 
 **Debugging and memory checking**
 
 It is recommended to use Valgrind to detect memory leaks, race conditions and threading issues.
 _For checking memory leaks_:
-valgrind --leak-check=full ./philo 5 800 200 200 7
+	valgrind --leak-check=full ./philo 5 800 200 200 7
 _For checking synchronization problems and deadlocks_:
-valgrind --tool=helgrind ./philo 5 800 200 200
+	valgrind --tool=helgrind ./philo 5 800 200 200
 _To detect data races_:
-valgrind --tool=drd ./philo 1 800 200 200
+	valgrind --tool=drd ./philo 1 800 200 200
 
 ## Resources
 

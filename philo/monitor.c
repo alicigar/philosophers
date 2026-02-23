@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/02 17:25:44 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/20 20:11:57 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/23 19:21:00 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	check_philosopher_death(t_data *data, int i)
 		data->dead = 1;
 		pthread_mutex_unlock(&data->death_mutex);
 		pthread_mutex_lock(&data->log_mutex);
-		printf("%ld %d died\n",
-			current_time - data->start_time, data->philos[i].id);
+		printf("%ld %d died\n", current_time - \
+data->start_time, data->philos[i].id);
 		pthread_mutex_unlock(&data->log_mutex);
 		return (1);
 	}
@@ -58,25 +58,32 @@ int	check_all_ate(t_data *data)
 	return (1);
 }
 
+int	monitor_checker(t_data *data)
+{
+	int		i;
+
+	i = 0;
+	while (i < data->number_of_philosophers)
+	{
+		if (check_philosopher_death(data, i))
+			return (1);
+		i++;
+	}
+	if (check_all_ate(data))
+		return (1);
+	return (0);
+}
+
 void	*monitor_routine(void *arg)
 {
 	t_data	*data;
-	int		i;
 
 	data = (t_data *)arg;
-	while (1)
-	{
-		i = 0;
-		while (i < data->number_of_philosophers)
-		{
-			if (check_philosopher_death(data, i))
-				return (NULL);
-			i++;
-		}
-		if (check_all_ate(data))
-			return (NULL);
+	while (!monitor_checker(data))
 		usleep(1);
-	}
+	pthread_mutex_lock(&data->death_mutex);
+	data->end = 1;
+	pthread_mutex_unlock(&data->death_mutex);
 	return (NULL);
 }
 
@@ -86,12 +93,14 @@ int	start_simulation(t_data *data)
 	int			i;
 
 	i = 0;
+	data->start_time = get_time();
 	while (i < data->number_of_philosophers)
 	{
 		pthread_create(&data->philos[i].thread, NULL, \
 philo_routine, &data->philos[i]);
 		i++;
 	}
+	data->start_gun = 1;
 	pthread_create(&monitor, NULL, monitor_routine, data);
 	pthread_join(monitor, NULL);
 	i = 0;

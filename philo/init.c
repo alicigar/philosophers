@@ -6,7 +6,7 @@
 /*   By: alicigar < alicigar@student.42malaga.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/13 21:42:37 by alicigar          #+#    #+#             */
-/*   Updated: 2026/02/20 20:09:21 by alicigar         ###   ########.fr       */
+/*   Updated: 2026/02/23 19:11:34 by alicigar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,10 @@ int	init_data(t_data *data, int argc, char **argv)
 	else
 		data->number_of_times_each_philosopher_must_eat = -1;
 	data->dead = 0;
-	data->start_time = get_time();
 	data->forks = NULL;
 	data->philos = NULL;
+	data->start_gun = 0;
+	data->end = 0;
 	pthread_mutex_init(&data->log_mutex, NULL);
 	pthread_mutex_init(&data->death_mutex, NULL);
 	return (0);
