@@ -9,6 +9,7 @@ The Dining Philosophers Problem is an example often used in computer science and
 Several philosophers sit around a table and alternate between thinking, eating, and sleeping. In order to eat, each philosopher (represented by a **thread**) must take two shared forks, whose access is protected using mutexes. The challenge lies in coordinating these actions so that all philosophers can eat when needed, without any of them starving and without the system falling into situations of deadlock or data race; in other words, blocking or conflicting behaviours.
 
 The main objectives of the project are to correctly manage:
+
 -Thread synchronization.
 -Exclusive access to shared resources.
 -Precise time control.
@@ -63,6 +64,7 @@ https://42-cursus.gitbook.io/guide/3-rank-03/philosophers
 https://en.wikipedia.org/wiki/Dining_philosophers_problem
 
 During the development of this project, AI was used as a learning support tool, mainly to:
+
 -Clarify theoretical concepts related to concurrency, synchronization, and thread management.
 -Assist in writing and improving the project documentation.
 -Help formulate questions and compare design approaches, without generating o copying code directly.
