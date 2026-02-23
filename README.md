@@ -11,10 +11,15 @@ Several philosophers sit around a table and alternate between thinking, eating, 
 The main objectives of the project are to correctly manage:
 
 -Thread synchronization.
+
 -Exclusive access to shared resources.
+
 -Precise time control.
+
 -Ordered and coherent log output.
+
 -Prevention of data races and deadlocks.
+
 -Clean termination of the simulation.
 
 
