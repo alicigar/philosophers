@@ -38,7 +38,7 @@ Philosophers can be executed with 5 or 6 arguments.
 
 | Argument | Description |
 |----------|-------------|
-| `argv[1]` `number_of_philosophers` | Number of philosophers and forks |
+| `argv[1]``number_of_philosophers` | Number of philosophers and forks |
 | `argv[2]` `time_to_die` | Time in ms before a philosopher dies |
 | `argv[3]` `time_to_eat` | Time in ms a philosopher spends eating |
 | `argv[4]` `time_to_sleep` | Time in ms a philosopher spends sleeping |
@@ -69,8 +69,10 @@ _To detect data races_:
 The subject provided by 42 was used as a primary resource throughout the development process.
 
 Additional external resources (such as tutorials and technical articles) were consulted to reinforce understanding and will be listed in this section:
-(https://42-cursus.gitbook.io/guide/3-rank-03/philosophers)
-(https://en.wikipedia.org/wiki/Dining_philosophers_problem)
+https://42-cursus.gitbook.io/guide/3-rank-03/philosophers
+
+https://en.wikipedia.org/wiki/Dining_philosophers_problem
+
 
 During the development of this project, AI was used as a learning support tool, mainly to:
 
