@@ -42,11 +42,17 @@ An example:
 
 It is recommended to use Valgrind to detect memory leaks, race conditions and threading issues.
 _For checking memory leaks_:
+
 	valgrind --leak-check=full ./philo 5 800 200 200 7
+
 _For checking synchronization problems and deadlocks_:
+
 	valgrind --tool=helgrind ./philo 5 800 200 200
+
 _To detect data races_:
+
 	valgrind --tool=drd ./philo 1 800 200 200
+
 
 ## Resources
 
