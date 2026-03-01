@@ -38,7 +38,7 @@ Philosophers can be executed with 5 or 6 arguments.
 
 | Argument | Description |
 |----------|-------------|
-| `argv[1]``number_of_philosophers` | Number of philosophers and forks |
+| `argv[1]` `number_of_philosophers` | Number of philosophers and forks |
 | `argv[2]` `time_to_die` | Time in ms before a philosopher dies |
 | `argv[3]` `time_to_eat` | Time in ms a philosopher spends eating |
 | `argv[4]` `time_to_sleep` | Time in ms a philosopher spends sleeping |
